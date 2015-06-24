@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{%set good_num %}
+<html>
+<head>
+  <meta charset="utf-8">
+    <style type="text/css">
+      td, th {border:1px solid black;}
+    </style>
+    <title>fridge's goods message</title>
+</head>
+<body>
+<p>Fridge's Goods Msg</p>
+</br>
+<div>
+  <form name="input" method="get" action="/">
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+    <th>Time</th>
+  </tr>
+  <tr>
+    {% for item in items %}
+             <li>{{ escape(item) }}</li>
+                    {% end %}
+    
+  </tr>
+</table>
+<input type="submit" value="Submit" />
+</form>
+</div>
+</body>
+</html>
