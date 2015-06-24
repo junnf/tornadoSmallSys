@@ -18,6 +18,11 @@ import tornado.web
 #define parameter
 from tornado.options import define, options
 define("port", default=8111, help="run on the given port", type=int)
+define("mysql_host", default="127.0.0.1:3306", help="database host")
+define("mysql_database", default="Personal", help="database name")
+define("mysql_user", default="root", help="database user")
+define("mysql_password", default="", help="database password")
+
 ax=['a','b','c']
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -56,6 +61,10 @@ if __name__ == "__main__":
                                             static_path=os.path.join(os.path.dirname(__file__), "static"),
                                             debug=True
                                             )#,(r"/fridge/SngMsg")])
+    db = torndb.Connection(
+				host=options.mysql_host, database=options.mysql_database,
+				user=options.mysql_user, password=options.mysql_password
+		)
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
