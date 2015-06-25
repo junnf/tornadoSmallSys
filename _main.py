@@ -50,6 +50,16 @@ class UserAuth(tornado.web.RequestHandler):
     def post(self):
         pass
 
+class UserRegi(tornado.web.RequestHandler):
+    def get(self):
+        self.render("regi.html")
+    def post(self):
+        #add regi.html handle POST
+        _user = self.get_argument('user')
+        _passwd = self.get_argument('passwd')
+        _passwd_again = self.get_argument('passwd_again')
+        #check mysql exists user?
+
 #class SingleGoodMsgHandler(tornado.web.RequestHandler):
 #    def get(self):
 #      pass
