@@ -19,9 +19,9 @@ import tornado.web
 from tornado.options import define, options
 define("port", default=8111, help="run on the given port", type=int)
 define("mysql_host", default="127.0.0.1:3306", help="database host")
-define("mysql_database", default="Personal", help="database name")
+define("mysql_database", default="2015pro", help="database name")
 define("mysql_user", default="root", help="database user")
-define("mysql_password", default="", help="database password")
+define("mysql_password", default="ljn7168396123", help="database password")
 
 ax=['a','b','c']
 
@@ -65,6 +65,11 @@ class UserRegi(tornado.web.RequestHandler):
 #      pass
 if __name__ == "__main__":
     tornado.options.parse_command_line()
+    self.db = torndb.Connection(
+		host=options.mysql_host, database=options.mysql_database,
+		user=options.mysql_user, password=options.mysql_password
+		)
+
     app = tornado.web.Application(handlers=[(r"/", IndexHandler),
                                             (r"/fridge/",AllMsgHandler)],
                                             template_path=os.path.join(os.path.dirname(__file__), "templates"),
