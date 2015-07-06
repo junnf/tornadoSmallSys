@@ -4,6 +4,7 @@
 import os.path
 #
 import textwrap
+import torndb
 
 import tornado.httpserver
 import tornado.ioloop
@@ -23,7 +24,7 @@ define("mysql_database", default="2015pro", help="database name")
 define("mysql_user", default="root", help="database user")
 define("mysql_password", default="ljn7168396123", help="database password")
 
-ax=['a','b','c']
+ax=[['a','1','2'],['b','2','3'],['c','3','4']]
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
@@ -38,7 +39,7 @@ class AllMsgHandler(tornado.web.RequestHandler):
     def get(self):
         #main
 
-        self.render("index.html", items=ax, good_num=[0,1,2])
+        self.render("index.html", items=ax)
 
     def post(self):
         pass
@@ -65,10 +66,10 @@ class UserRegi(tornado.web.RequestHandler):
 #      pass
 if __name__ == "__main__":
     tornado.options.parse_command_line()
-    self.db = torndb.Connection(
-		host=options.mysql_host, database=options.mysql_database,
-		user=options.mysql_user, password=options.mysql_password
-		)
+    #db = torndb.Connection(
+    #host=options.mysql_host, database=options.mysql_database,
+    #user=options.mysql_user, password=options.mysql_password
+    #)
 
     app = tornado.web.Application(handlers=[(r"/", IndexHandler),
                                             (r"/fridge/",AllMsgHandler)],
@@ -76,10 +77,10 @@ if __name__ == "__main__":
                                             static_path=os.path.join(os.path.dirname(__file__), "static"),
                                             debug=True
                                             )#,(r"/fridge/SngMsg")])
-    db = torndb.Connection(
-				host=options.mysql_host, database=options.mysql_database,
-				user=options.mysql_user, password=options.mysql_password
-		)
+    #db = torndb.Connection(
+    #		host=options.mysql_host, database=options.mysql_database,
+    #		user=options.mysql_user, password=options.mysql_password
+    #)
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{%set good_num %}
 <html>
 <head>
   <meta charset="utf-8">
@@ -15,15 +14,14 @@
   <form name="input" method="get" action="/">
 <table border="1">
   <tr>
-    <th>Name</th>
-    <th>Number</th>
-    <th>Time</th>
+    <li>Name Number Time</li>
   </tr>
   <tr>
     {% for item in items %}
-             <li>{{ escape(item) }}</li>
+    <li>{% for itemson in item%}
+             {{ escape(itemson) }}
+             {% end %}</li>
                     {% end %}
-    
   </tr>
 </table>
 <input type="submit" value="Submit" />
