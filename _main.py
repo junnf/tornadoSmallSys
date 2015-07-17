@@ -3,9 +3,10 @@
 #test ospath to import sometemplate
 import os.path
 #
+
+from tornado.options import define, options
 import textwrap
 import torndb
-
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -17,7 +18,6 @@ import tornado.web
 #          {% end %}
 #      {% end %}
 #define parameter
-from tornado.options import define, options
 define("port", default=8111, help="run on the given port", type=int)
 define("mysql_host", default="127.0.0.1:3306", help="database host")
 define("mysql_database", default="2015pro", help="database name")
@@ -56,23 +56,32 @@ class UserRegi(tornado.web.RequestHandler):
         self.render("regi.html")
     def post(self):
         #add regi.html handle POST
-        _user = self.get_argument('user')
-        _passwd = self.get_argument('passwd')
-        _passwd_again = self.get_argument('passwd_again')
+        _user = self.get_argument('user',None)
+        _passwd = self.get_argument('passwd',None)
+        _passwd_again = self.get_argument('passwd_again',None)
         #check mysql exists user?
+        if _user is not None and _passwd is not None and _passwd_again is not None:
+            _query_string_user = "SELECT * FROM user WHERE user=%s" % _user
+            result_register = self.db.get(_query_string_user)
+            if result_register is None:
+                #register
+            else:
+                self.write("you can't register")
+
 
 #class SingleGoodMsgHandler(tornado.web.RequestHandler):
 #    def get(self):
 #      pass
 if __name__ == "__main__":
     tornado.options.parse_command_line()
-    #db = torndb.Connection(
-    #host=options.mysql_host, database=options.mysql_database,
-    #user=options.mysql_user, password=options.mysql_password
-    #)
+    db = torndb.Connection(
+    host=options.mysql_host, database=options.mysql_database,
+    user=options.mysql_user, password=options.mysql_password
+    )
 
     app = tornado.web.Application(handlers=[(r"/", IndexHandler),
-                                            (r"/fridge/",AllMsgHandler)],
+                                            (r"/fridge/",AllMsgHandler),
+                                            (r"/user/",UserAuth)]
                                             template_path=os.path.join(os.path.dirname(__file__), "templates"),
                                             static_path=os.path.join(os.path.dirname(__file__), "static"),
                                             debug=True

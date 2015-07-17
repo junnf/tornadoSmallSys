@@ -16,13 +16,11 @@
   <tr>
     <li>Name Number Time</li>
   </tr>
-  <tr>
     {% for item in items %}
-    <li>{% for itemson in item%}
-             {{ escape(itemson) }}
-             {% end %}</li>
+    <tr>{% for itemson in item%}
+      <td> {{ escape(itemson) }}</td>
+             {% end %}</tr>
                     {% end %}
-  </tr>
 </table>
 <input type="submit" value="Submit" />
 </form>
