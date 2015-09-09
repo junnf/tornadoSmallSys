@@ -65,6 +65,7 @@ class UserRegi(tornado.web.RequestHandler):
             result_register = self.db.get(_query_string_user)
             if result_register is None:
                 #register
+                pass
             else:
                 self.write("you can't register")
 
@@ -80,8 +81,7 @@ if __name__ == "__main__":
     )
 
     app = tornado.web.Application(handlers=[(r"/", IndexHandler),
-                                            (r"/fridge/",AllMsgHandler),
-                                            (r"/user/",UserAuth)]
+                                            (r"/registe",UserRegi),
                                             template_path=os.path.join(os.path.dirname(__file__), "templates"),
                                             static_path=os.path.join(os.path.dirname(__file__), "static"),
                                             debug=True

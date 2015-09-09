@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-    <style type="text/css">
-      td, th {border:1px solid black;}
-    </style>
-    <title>fridge's goods message</title>
-</head>
-<body>
-<p>Fridge's Goods Msg</p>
-</br>
-<div>
-  <form name="input" method="get" action="/">
-<table border="1">
-  <tr>
-    <li>Name Number Time</li>
-  </tr>
-    {% for item in items %}
-    <tr>{% for itemson in item%}
-      <td> {{ escape(itemson) }}</td>
-             {% end %}</tr>
-                    {% end %}
-</table>
-<input type="submit" value="Submit" />
-</form>
-</div>
-</body>
+    <head><title>Register test</title></head>
+    <body>
+        <h1>register</h1>
+        <form method="post" action="/registe">
+        <p>Your register name<br><input type="text" name="noun1"></p>
+        <p>password<br><input type="password" name="noun2"></p>
+        <p>password again<br><input type="password" name="noun3"></p>
+        <input type="submit" name="register" value="register">
+        </form>
+    </body>
 </html>
+
